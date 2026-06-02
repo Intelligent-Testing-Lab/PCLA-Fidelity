@@ -23,12 +23,10 @@ def main():
 
     try:
         world = client.get_world()
-        traffic_manager = client.get_trafficmanager(8000)
         
         settings = world.get_settings()
         asynch = False
         if not asynch:
-            traffic_manager.set_synchronous_mode(True)
             if not settings.synchronous_mode:
                 synchronous_master = True
                 settings.synchronous_mode = True
@@ -61,7 +59,7 @@ def main():
 
         world.tick()
 
-        agent = "simlingo_simlingo"
+        agent = "carl_carlv11"
         route = "./sample_route.xml"
         pcla = PCLA(agent, vehicle, route, client)
         
