@@ -59,6 +59,7 @@ class CameraState:
 
         try:
             for frame in buffer:
+                CameraState.save_numpy_frame(frame)
                 video_writer.write(frame)
         finally:
             video_writer.release()
