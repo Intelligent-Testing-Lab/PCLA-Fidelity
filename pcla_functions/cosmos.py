@@ -34,6 +34,7 @@ def generate_request_params(
         "prompt": prompts[0],
         "negative_prompt": prompts[1],
         "size": size,
+        "num_inference_steps": 35,
         "num_frames": num_frames,
         "fps": fps,
     }

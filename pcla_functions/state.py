@@ -68,12 +68,12 @@ class CameraState:
             video_writer.release()
             
     @staticmethod
-    def get_cosmos_frame() -> np.ndarray:
+    def get_cosmos_frame(num_frames: int = 20, fps: int = 20) -> np.ndarray:
         # get the last frames .mp4
         current_frame = CameraState.get_working_dir() / f"{CameraState.current_step}.mp4"
 
         req_params = generate_request_params(
-            num_frames=20, fps=20, size="1024x512", input_reference=str(current_frame)
+            num_frames=num_frames, fps=fps, size="1024x512", input_reference=str(current_frame)
         )
         
         # block until receive raw bytes back from cosmos

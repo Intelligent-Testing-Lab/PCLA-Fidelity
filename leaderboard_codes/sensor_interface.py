@@ -163,7 +163,7 @@ class CallBack(object):
         
         # push frame to cosmos buffer
         CameraState.add_frame(array)
-        CameraState.save_video_from_buffer() # set this to the 1 / time_step (Effective FPS)
+        CameraState.save_video_from_buffer(120, 20) # set this to the 1 / time_step (Effective FPS)
         
         cosmos_img = CameraState.get_cosmos_frame()
         
@@ -209,7 +209,7 @@ class SensorInterface(object):
         self._sensors_objects = {}
         self._data_buffers = {}
         self._new_data_buffers = Queue()
-        self._queue_timeout = 60
+        self._queue_timeout = 120
 
         # Only sensor that doesn't get the data on tick, needs special treatment
         self._opendrive_tag = None
