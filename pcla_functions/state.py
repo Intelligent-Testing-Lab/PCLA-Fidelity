@@ -59,7 +59,7 @@ class CameraState:
 
         try:
             for frame in buffer:
-                CameraState.save_numpy_frame(frame)
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
                 video_writer.write(frame)
         finally:
             video_writer.release()
