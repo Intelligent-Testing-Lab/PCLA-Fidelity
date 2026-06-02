@@ -2,6 +2,7 @@ from collections import deque
 from pathlib import Path
 import numpy as np
 import cv2
+import copy
 import uuid
 
 class CameraState:
@@ -35,7 +36,7 @@ class CameraState:
     @staticmethod
     def add_frame(frame: np.ndarray) -> None:
         # might need to adjust to a deep copy    
-        CameraState._frame_buffer.append(frame.copy())         
+        CameraState._frame_buffer.append(copy.deepcopy(frame))         
 
     @staticmethod
     def save_video_from_buffer(num_frames: int = 20, fps: float = 20.0) -> None:
