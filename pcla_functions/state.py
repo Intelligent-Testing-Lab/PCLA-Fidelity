@@ -6,6 +6,7 @@ import uuid
 class CameraState:
     working_dir: Path | None = None
     current_step: int = 0
+    SAVE_CAMERA_FRAMES: bool = True
     
     @staticmethod
     def set_working_dir(name: str = "scenario") -> Path:

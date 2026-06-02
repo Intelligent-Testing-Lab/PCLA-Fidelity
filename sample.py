@@ -7,6 +7,8 @@ from pcla_functions.state import CameraState
 
 def main():
 
+    CameraState.SAVE_CAMERA_FRAMES = True
+    NUM_STEPS = 1000
     HOST_IP  = "localhost"
     client = carla.Client(HOST_IP, 2000)
     client.set_timeout(10.0)
@@ -14,6 +16,7 @@ def main():
     synchronous_master = False
     pcla = None
     settings = None
+    
     
     # initialise where we save the frames to
     CameraState.set_working_dir()
@@ -64,7 +67,7 @@ def main():
         
         print('\nSpawned the vehicle with model =', agent,', press Ctrl+C to exit.\n')
         step = 0
-        while True:
+        while step < NUM_STEPS:
             try:
                 ego_action = pcla.get_action()
                 vehicle.apply_control(ego_action)

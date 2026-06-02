@@ -160,7 +160,9 @@ class CallBack(object):
         array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         array = copy.deepcopy(array)
         array = np.reshape(array, (image.height, image.width, 4))
-        CameraState.save_numpy_frame(array)
+        
+        if CameraState.SAVE_CAMERA_FRAMES:
+            CameraState.save_numpy_frame(array)
         
         self._data_provider.update_sensor(tag, array, image.frame)
 
