@@ -1,6 +1,7 @@
 import carla
 import time
 from PCLA import PCLA
+from pcla_functions.state import CameraState
 
 
 
@@ -13,6 +14,9 @@ def main():
     synchronous_master = False
     pcla = None
     settings = None
+    
+    # initialise where we save the frames to
+    CameraState.set_working_dir()
 
     try:
         world = client.get_world()
@@ -65,7 +69,13 @@ def main():
                 ego_action = pcla.get_action()
                 vehicle.apply_control(ego_action)
                 world.tick()
+
                 step += 1
+                CameraState.increment_step()
+                
+                if step % 20 == 0:
+                    print("Ticked 1 sec in-game")
+                    
             except Exception as e:
                 print(f'\nError at step {step}:')
                 print(f'{type(e).__name__}: {e}\n')

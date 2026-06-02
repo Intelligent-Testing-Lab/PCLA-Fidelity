@@ -11,6 +11,8 @@ from queue import Empty
 import carla
 from .carla_data_provider import CarlaDataProvider
 from .timer import GameTime
+from pcla_functions.state import CameraState
+
 
 
 def threaded(fn):
@@ -158,6 +160,8 @@ class CallBack(object):
         array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         array = copy.deepcopy(array)
         array = np.reshape(array, (image.height, image.width, 4))
+        CameraState.save_numpy_frame(array)
+        
         self._data_provider.update_sensor(tag, array, image.frame)
 
     def _parse_lidar_cb(self, lidar_data, tag):
