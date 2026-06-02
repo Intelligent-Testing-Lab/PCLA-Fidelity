@@ -25,7 +25,6 @@ class CameraState:
     
     @staticmethod
     def save_numpy_frame(frame: np.ndarray) -> None:
-        print("Saving array to file")
         save_dir = CameraState.get_working_dir() / f"{CameraState.current_step}.png"
         cv2.imwrite(str(save_dir), frame)
         

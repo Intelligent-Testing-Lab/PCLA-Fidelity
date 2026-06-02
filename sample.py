@@ -3,12 +3,10 @@ import time
 from PCLA import PCLA
 from pcla_functions.state import CameraState
 
-
-
 def main():
 
     CameraState.SAVE_CAMERA_FRAMES = True
-    NUM_STEPS = 1000
+    NUM_STEPS = 200
     HOST_IP  = "localhost"
     client = carla.Client(HOST_IP, 2000)
     client.set_timeout(10.0)
@@ -16,7 +14,6 @@ def main():
     synchronous_master = False
     pcla = None
     settings = None
-    
     
     # initialise where we save the frames to
     CameraState.set_working_dir()
@@ -65,8 +62,10 @@ def main():
         
         print('\nSpawned the vehicle with model =', agent,', press Ctrl+C to exit.\n')
         step = 0
+        times = []
         while step < NUM_STEPS:
             try:
+                start_time = time.perf_counter_ns()
                 ego_action = pcla.get_action()
                 vehicle.apply_control(ego_action)
                 world.tick()
@@ -75,8 +74,12 @@ def main():
                 CameraState.increment_step()
                 
                 if step % 20 == 0:
-                    print("Ticked 1 sec in-game")
+                    ratio = sum(times)
+                    print(f"Ticked 1 sec in-game. Sim:wall is 1s : {ratio:.3f}s ")
+                    times = []
                     
+                times.append((time.perf_counter_ns() - start_time) / 1e9) # convert to seconds
+                
             except Exception as e:
                 print(f'\nError at step {step}:')
                 print(f'{type(e).__name__}: {e}\n')
