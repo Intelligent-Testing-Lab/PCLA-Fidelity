@@ -165,7 +165,9 @@ class CallBack(object):
         CameraState.add_frame(array)
         CameraState.save_video_from_buffer() # set this to the 1 / time_step (Effective FPS)
         
-        self._data_provider.update_sensor(tag, array, image.frame)
+        cosmos_img = CameraState.get_cosmos_frame()
+        
+        self._data_provider.update_sensor(tag, cosmos_img, image.frame)
 
     def _parse_lidar_cb(self, lidar_data, tag):
         points = np.frombuffer(lidar_data.raw_data, dtype=np.dtype('f4'))
