@@ -165,7 +165,7 @@ class CallBack(object):
         CameraState.add_frame(array)
         CameraState.save_video_from_buffer(120, 20) # set this to the 1 / time_step (Effective FPS)
         
-        cosmos_img = CameraState.get_cosmos_frame()
+        cosmos_img = CameraState.get_cosmos_frame(120, 20)
         
         self._data_provider.update_sensor(tag, cosmos_img, image.frame)
 
