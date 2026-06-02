@@ -161,8 +161,9 @@ class CallBack(object):
         array = copy.deepcopy(array)
         array = np.reshape(array, (image.height, image.width, 4))
         
-        if CameraState.SAVE_CAMERA_FRAMES:
-            CameraState.save_numpy_frame(array)
+        # push frame to cosmos buffer
+        CameraState.add_frame(array)
+        CameraState.save_video_from_buffer() # set this to the 1 / time_step (Effective FPS)
         
         self._data_provider.update_sensor(tag, array, image.frame)
 
